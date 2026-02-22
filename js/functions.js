@@ -86,3 +86,5 @@ function runTests() {
 }
 
 runTests();
+
+module.exports = { isStringLengthValid, extractDigits };
