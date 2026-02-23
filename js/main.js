@@ -5,3 +5,5 @@ function getSum(a, b){
 }
 
 getSum(2, 3);
+
+module.exports = { getSum };
