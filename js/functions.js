@@ -13,7 +13,4 @@ function extractDigits(value) {
   return parseInt(digits, 10);
 }
 
-// Экспорт для тестов (работает только в Node.js)
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { isStringLengthValid, extractDigits };
-}
+export { isStringLengthValid, extractDigits };

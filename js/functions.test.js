@@ -1,4 +1,4 @@
-const { isStringLengthValid, extractDigits } = require('./functions');
+import { isStringLengthValid, extractDigits } from './functions.js';
 
 describe('isStringLengthValid', () => {
   test('строка короче maxLength должна вернуть true', () => {
