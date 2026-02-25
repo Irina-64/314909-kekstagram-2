@@ -21,7 +21,9 @@
   "scripts": {
     "start": "vite --port 3000 --open",
     "lint": "eslint js/",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "npm run test:main && npm run test:functions",
+    "test:main": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config=jest.config.main.js",
+    "test:functions": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config=jest.config.functions.js"
   },
   "engines": {
     "node": "^20",
