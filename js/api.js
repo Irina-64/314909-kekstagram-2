@@ -1,6 +1,6 @@
 // API для работы с сервером
 
-import { API_URL } from './const.js';
+import { API_URL } from './constants.js';
 
 /**
  * Загружает данные с сервера

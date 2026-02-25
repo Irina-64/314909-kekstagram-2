@@ -1,6 +1,6 @@
 // Фильтрация фотографий
 
-import { RANDOM_PHOTO_COUNT } from './const.js';
+import { RANDOM_PHOTO_COUNT } from './constants.js';
 
 /**
  * Фильтр по умолчанию

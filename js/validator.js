@@ -1,6 +1,6 @@
 // Валидация хэштегов и описания
 
-import { MAX_HASHTAGS, MAX_DESCRIPTION_LENGTH } from './const.js';
+import { MAX_HASHTAGS, MAX_DESCRIPTION_LENGTH } from './constants.js';
 
 const HashtagRegex = /^#[a-zа-яё0-9]{1,19}$/i;
 
