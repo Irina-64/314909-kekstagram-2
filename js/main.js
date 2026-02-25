@@ -1,9 +1,14 @@
 // Точка входа в приложение
 
-import { photos } from './models/photo.js';
+import { photos, generatePhotosData } from './models/photo.js';
 import { renderPictures } from './thumbnails.js';
+import { initGallery } from './gallery.js';
 
+// Отрисовка миниатюр
 renderPictures();
 
+// Инициализация галереи
+initGallery(photos);
+
 // Экспорт для использования в других модулях
-export { photos };
+export { photos, generatePhotosData };
