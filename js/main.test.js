@@ -1,10 +1,10 @@
-const { photos, generatePhotos } = require('./main');
+import { photos, generatePhotosData } from './main.js';
 
 describe('Генерация фотографий', () => {
   let generatedPhotos;
 
   beforeEach(() => {
-    generatedPhotos = generatePhotos();
+    generatedPhotos = generatePhotosData();
   });
 
   test('генерируется ровно 25 фотографий', () => {
