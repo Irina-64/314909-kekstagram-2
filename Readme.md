@@ -30,10 +30,7 @@ alt ← photo.description
 .picture__comments ← photo.comments.length
 .picture__likes ← photo.likes
 Вставляет все элементы через DocumentFragment
-Результат:
 
-✅ ESLint: 0 ошибок
-✅ Тесты: 16 passed
 ---
 
 <a href="https://htmlacademy.ru/intensive/javascript"><img align="left" width="50" height="50" alt="HTML Academy" src="https://up.htmlacademy.ru/static/img/intensive/javascript/logo-for-github-2.png"></a>
