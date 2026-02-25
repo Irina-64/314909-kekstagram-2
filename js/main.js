@@ -1,5 +1,9 @@
 // Точка входа в приложение
 
-import { init } from './controller/main-controller.js';
+import { photos } from './models/photo.js';
+import { renderPictures } from './thumbnails.js';
 
-init();
+renderPictures();
+
+// Экспорт для использования в других модулях
+export { photos };
