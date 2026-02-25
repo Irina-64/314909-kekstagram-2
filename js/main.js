@@ -73,11 +73,11 @@ function getRandomArrayElement(array) {
 function generateComment(commentId) {
   const messagePartsCount = getRandomNumber(1, 2);
   let message = '';
-  
+
   for (let i = 0; i < messagePartsCount; i++) {
-    message += getRandomArrayElement(COMMENT_MESSAGES) + ' ';
+    message = `${message}${getRandomArrayElement(COMMENT_MESSAGES)} `;
   }
-  
+
   return {
     id: commentId,
     avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
@@ -98,9 +98,9 @@ function generateComments(count, startId) {
 // Функция для генерации одного объекта фотографии
 function generatePhoto(id) {
   const commentsCount = getRandomNumber(MIN_COMMENTS, MAX_COMMENTS);
-  
+
   return {
-    id: id,
+    id,
     url: `photos/${id}.jpg`,
     description: DESCRIPTIONS[id - 1],
     likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
@@ -109,18 +109,18 @@ function generatePhoto(id) {
 }
 
 // Функция для генерации массива из 25 фотографий
-function generatePhotos() {
-  const photos = [];
+function generatePhotosData() {
+  const generatedPhotos = [];
   for (let i = 1; i <= PHOTO_COUNT; i++) {
-    photos.push(generatePhoto(i));
+    generatedPhotos.push(generatePhoto(i));
   }
-  return photos;
+  return generatedPhotos;
 }
 
 // Генерируем массив фотографий
-const photos = generatePhotos();
+const photos = generatePhotosData();
 
 // Экспорт для тестов (работает только в Node.js)
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { photos, generatePhotos };
+  module.exports = { photos, generatePhotos: generatePhotosData };
 }

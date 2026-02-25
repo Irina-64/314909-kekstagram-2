@@ -41,14 +41,14 @@ describe('Генерация фотографий', () => {
 
   describe('Проверка id', () => {
     test('id находится в диапазоне от 1 до 25', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(photo.id).toBeGreaterThanOrEqual(1);
         expect(photo.id).toBeLessThanOrEqual(25);
       });
     });
 
     test('все id уникальны', () => {
-      const ids = generatedPhotos.map(photo => photo.id);
+      const ids = generatedPhotos.map((photo) => photo.id);
       const uniqueIds = [...new Set(ids)];
       expect(ids).toHaveLength(uniqueIds.length);
     });
@@ -56,19 +56,19 @@ describe('Генерация фотографий', () => {
 
   describe('Проверка url', () => {
     test('url имеет правильный формат', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(photo.url).toMatch(/^photos\/\d+\.jpg$/);
       });
     });
 
     test('все url уникальны', () => {
-      const urls = generatedPhotos.map(photo => photo.url);
+      const urls = generatedPhotos.map((photo) => photo.url);
       const uniqueUrls = [...new Set(urls)];
       expect(urls).toHaveLength(uniqueUrls.length);
     });
 
     test('url соответствует id фотографии', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(photo.url).toBe(`photos/${photo.id}.jpg`);
       });
     });
@@ -76,7 +76,7 @@ describe('Генерация фотографий', () => {
 
   describe('Проверка description', () => {
     test('description — непустая строка', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(typeof photo.description).toBe('string');
         expect(photo.description.length).toBeGreaterThan(0);
       });
@@ -85,14 +85,14 @@ describe('Генерация фотографий', () => {
 
   describe('Проверка likes', () => {
     test('likes находится в диапазоне от 15 до 200', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(photo.likes).toBeGreaterThanOrEqual(15);
         expect(photo.likes).toBeLessThanOrEqual(200);
       });
     });
 
     test('likes — целое число', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(Number.isInteger(photo.likes)).toBe(true);
       });
     });
@@ -100,13 +100,13 @@ describe('Генерация фотографий', () => {
 
   describe('Проверка comments', () => {
     test('comments — массив', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(Array.isArray(photo.comments)).toBe(true);
       });
     });
 
     test('количество комментариев от 0 до 30', () => {
-      generatedPhotos.forEach(photo => {
+      generatedPhotos.forEach((photo) => {
         expect(photo.comments.length).toBeGreaterThanOrEqual(0);
         expect(photo.comments.length).toBeLessThanOrEqual(30);
       });
@@ -116,7 +116,7 @@ describe('Генерация фотографий', () => {
       let comment;
 
       beforeEach(() => {
-        const photoWithComments = generatedPhotos.find(p => p.comments.length > 0);
+        const photoWithComments = generatedPhotos.find((p) => p.comments.length > 0);
         if (photoWithComments) {
           comment = photoWithComments.comments[0];
         }
