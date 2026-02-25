@@ -1,7 +1,33 @@
-const PHOTO_COUNT = 25;
-const MAX_LIKES = 200;
-const MIN_LIKES = 15;
-const MAX_COMMENTS = 30;
-const MIN_COMMENTS = 0;
+// Константы приложения
 
-export { PHOTO_COUNT, MAX_LIKES, MIN_LIKES, MAX_COMMENTS, MIN_COMMENTS };
+export const API_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+
+export const DATA_COUNT = 25;
+
+export const PHOTO_COUNT = 25;
+
+export const MAX_LIKES = 200;
+
+export const MIN_LIKES = 15;
+
+export const MAX_COMMENTS = 30;
+
+export const MIN_COMMENTS = 0;
+
+export const COMMENT_STEP = 5;
+
+export const SCALE_STEP = 0.25;
+
+export const SCALE_MIN = 0.25;
+
+export const SCALE_MAX = 1;
+
+export const MAX_HASHTAGS = 5;
+
+export const MAX_HASHTAG_LENGTH = 20;
+
+export const MAX_DESCRIPTION_LENGTH = 140;
+
+export const RANDOM_PHOTO_COUNT = 10;
+
+export const DEBOUNCE_DELAY = 500;

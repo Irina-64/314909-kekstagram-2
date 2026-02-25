@@ -1,6 +1,6 @@
 // Эффекты для изображений
 
-import { SCALE_STEP, SCALE_MIN, SCALE_MAX } from './const.js';
+import { SCALE_STEP, SCALE_MIN, SCALE_MAX } from './constants.js';
 
 const Effects = {
   none: {
