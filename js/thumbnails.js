@@ -1,17 +1,16 @@
 // Модуль отрисовки миниатюр фотографий
 
-import { photos } from './main.js';
-
-const picturesContainer = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture').content;
+const PICTURE_SELECTOR = '.pictures';
+const TEMPLATE_SELECTOR = '#picture';
 
 /**
  * Создаёт DOM-элемент миниатюры фотографии
  * @param {Object} photo - объект фотографии
+ * @param {HTMLTemplateElement} template - шаблон миниатюры
  * @returns {HTMLElement}
  */
-function createPictureElement(photo) {
-  const pictureElement = pictureTemplate.cloneNode(true).querySelector('.picture');
+function createPictureElement(photo, template) {
+  const pictureElement = template.cloneNode(true).querySelector('.picture');
 
   const img = pictureElement.querySelector('.picture__img');
   img.src = photo.url;
@@ -25,12 +24,20 @@ function createPictureElement(photo) {
 
 /**
  * Отрисовывает миниатюры фотографий на странице
+ * @param {Array} photos - массив фотографий
  */
-function renderPictures() {
+function renderPictures(photos) {
+  const picturesContainer = document.querySelector(PICTURE_SELECTOR);
+  const pictureTemplate = document.querySelector(TEMPLATE_SELECTOR);
+
+  if (!picturesContainer || !pictureTemplate) {
+    return;
+  }
+
   const fragment = document.createDocumentFragment();
 
   photos.forEach((photo) => {
-    const pictureElement = createPictureElement(photo);
+    const pictureElement = createPictureElement(photo, pictureTemplate.content);
     fragment.appendChild(pictureElement);
   });
 

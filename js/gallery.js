@@ -9,6 +9,10 @@ import { openPicture, initPictureModal } from './big-picture-view.js';
 function initGallery(photos) {
   const picturesContainer = document.querySelector('.pictures');
 
+  if (!picturesContainer) {
+    return;
+  }
+
   // Инициализация модального окна
   initPictureModal();
 

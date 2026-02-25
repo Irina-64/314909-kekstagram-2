@@ -23,4 +23,6 @@ function generatePhotosData() {
   return generatedPhotos;
 }
 
-export { generatePhoto, generatePhotosData };
+const photos = generatePhotosData();
+
+export { photos, generatePhoto, generatePhotosData };

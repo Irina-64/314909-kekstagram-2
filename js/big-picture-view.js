@@ -1,21 +1,47 @@
 // Модуль отрисовки полноразмерного изображения
 
-const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
-const bigPictureCaption = bigPicture.querySelector('.social__caption');
-const bigPictureLikes = bigPicture.querySelector('.likes-count');
-const bigPictureCommentShown = bigPicture.querySelector('.social__comment-shown-count');
-const bigPictureCommentTotal = bigPicture.querySelector('.social__comment-total-count');
-const bigPictureComments = bigPicture.querySelector('.social__comments');
-const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
-const socialCommentCount = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
+const SELECTORS = {
+  bigPicture: '.big-picture',
+  bigPictureImg: '.big-picture__img img',
+  bigPictureCaption: '.social__caption',
+  bigPictureLikes: '.likes-count',
+  bigPictureCommentShown: '.social__comment-shown-count',
+  bigPictureCommentTotal: '.social__comment-total-count',
+  bigPictureComments: '.social__comments',
+  bigPictureCancel: '.big-picture__cancel',
+  socialCommentCount: '.social__comment-count',
+  commentsLoader: '.comments-loader'
+};
+
+/**
+ * Получает элементы модального окна
+ * @returns {Object|null}
+ */
+function getElements() {
+  const bigPicture = document.querySelector(SELECTORS.bigPicture);
+  if (!bigPicture) {
+    return null;
+  }
+  return {
+    bigPicture,
+    bigPictureImg: bigPicture.querySelector(SELECTORS.bigPictureImg),
+    bigPictureCaption: bigPicture.querySelector(SELECTORS.bigPictureCaption),
+    bigPictureLikes: bigPicture.querySelector(SELECTORS.bigPictureLikes),
+    bigPictureCommentShown: bigPicture.querySelector(SELECTORS.bigPictureCommentShown),
+    bigPictureCommentTotal: bigPicture.querySelector(SELECTORS.bigPictureCommentTotal),
+    bigPictureComments: bigPicture.querySelector(SELECTORS.bigPictureComments),
+    bigPictureCancel: bigPicture.querySelector(SELECTORS.bigPictureCancel),
+    socialCommentCount: bigPicture.querySelector(SELECTORS.socialCommentCount),
+    commentsLoader: bigPicture.querySelector(SELECTORS.commentsLoader)
+  };
+}
 
 /**
  * Отрисовывает комментарии к фотографии
+ * @param {Object} elements - элементы модального окна
  * @param {Array} comments - массив комментариев
  */
-function renderComments(comments) {
+function renderComments(elements, comments) {
   const fragment = document.createDocumentFragment();
 
   comments.forEach((comment) => {
@@ -38,7 +64,7 @@ function renderComments(comments) {
     fragment.appendChild(commentElement);
   });
 
-  bigPictureComments.appendChild(fragment);
+  elements.bigPictureComments.appendChild(fragment);
 }
 
 /**
@@ -46,19 +72,24 @@ function renderComments(comments) {
  * @param {Object} photo - объект фотографии
  */
 function openPicture(photo) {
-  bigPictureImg.src = photo.url;
-  bigPictureCaption.textContent = photo.description;
-  bigPictureLikes.textContent = photo.likes;
-  bigPictureCommentShown.textContent = photo.comments.length;
-  bigPictureCommentTotal.textContent = photo.comments.length;
+  const elements = getElements();
+  if (!elements) {
+    return;
+  }
 
-  bigPictureComments.innerHTML = '';
-  renderComments(photo.comments);
+  elements.bigPictureImg.src = photo.url;
+  elements.bigPictureCaption.textContent = photo.description;
+  elements.bigPictureLikes.textContent = photo.likes;
+  elements.bigPictureCommentShown.textContent = photo.comments.length;
+  elements.bigPictureCommentTotal.textContent = photo.comments.length;
 
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  elements.bigPictureComments.innerHTML = '';
+  renderComments(elements, photo.comments);
 
-  bigPicture.classList.remove('hidden');
+  elements.socialCommentCount.classList.add('hidden');
+  elements.commentsLoader.classList.add('hidden');
+
+  elements.bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
 }
 
@@ -66,8 +97,14 @@ function openPicture(photo) {
  * Закрывает полноразмерное изображение
  */
 function closePicture() {
-  bigPicture.classList.add('hidden');
+  const elements = getElements();
+  if (!elements) {
+    return;
+  }
+
+  elements.bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  elements.bigPictureComments.innerHTML = '';
 }
 
 /**
@@ -75,15 +112,20 @@ function closePicture() {
  * @param {Function} onClose - callback при закрытии
  */
 function initPictureModal(onClose) {
-  bigPictureCancel.addEventListener('click', () => {
+  const elements = getElements();
+  if (!elements) {
+    return;
+  }
+
+  elements.bigPictureCancel.addEventListener('click', () => {
     closePicture();
     if (onClose) {
       onClose();
     }
   });
 
-  bigPicture.addEventListener('click', (evt) => {
-    if (evt.target === bigPicture) {
+  elements.bigPicture.addEventListener('click', (evt) => {
+    if (evt.target === elements.bigPicture) {
       closePicture();
       if (onClose) {
         onClose();
@@ -92,7 +134,7 @@ function initPictureModal(onClose) {
   });
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
+    if (evt.key === 'Escape' && !elements.bigPicture.classList.contains('hidden')) {
       evt.preventDefault();
       closePicture();
       if (onClose) {
