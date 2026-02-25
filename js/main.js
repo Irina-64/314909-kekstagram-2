@@ -1,5 +1,5 @@
-import { generatePhotosData } from './models/photo.js';
+// Точка входа в приложение
 
-const photos = generatePhotosData();
+import { init } from './controller/main-controller.js';
 
-export { photos, generatePhotosData };
+init();
