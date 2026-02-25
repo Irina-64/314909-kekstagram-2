@@ -5,7 +5,7 @@ import { renderPictures } from './thumbnails.js';
 import { initGallery } from './gallery.js';
 
 // Отрисовка миниатюр
-renderPictures();
+renderPictures(photos);
 
 // Инициализация галереи
 initGallery(photos);
