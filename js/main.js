@@ -117,7 +117,10 @@ function generatePhotos() {
   return photos;
 }
 
-// Генерируем и экспортируем массив фотографий
+// Генерируем массив фотографий
 const photos = generatePhotos();
 
-module.exports = { photos, generatePhotos };
+// Экспорт для тестов (работает только в Node.js)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { photos, generatePhotos };
+}
