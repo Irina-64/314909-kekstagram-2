@@ -1,7 +1,7 @@
 export default {
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
   transform: {},
   moduleFileExtensions: ['js', 'mjs'],
-  testMatch: ['**/*.test.js'],
+  testMatch: ['**/functions.test.js'],
   setupFilesAfterEnv: ['<rootDir>/js/test-setup.js']
 };

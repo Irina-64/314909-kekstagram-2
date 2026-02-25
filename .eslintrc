@@ -23,3 +23,10 @@ overrides:
     env:
       jest: true
       node: true
+  - files:
+      - "functions.test.js"
+    globals:
+      isStringLengthValid: readonly
+      extractDigits: readonly
+      isMeetingFitsWorkTime: readonly
+      timeToMinutes: readonly

@@ -1,4 +1,5 @@
-import { isStringLengthValid, extractDigits } from './functions.js';
+// Тесты для функций из functions.js
+// Функции доступны глобально, так как файл подключён как обычный скрипт
 
 describe('isStringLengthValid', () => {
   test('строка короче maxLength должна вернуть true', () => {
@@ -45,5 +46,27 @@ describe('extractDigits', () => {
 
   test('число с плавающей точкой возвращает все цифры', () => {
     expect(extractDigits(1.5)).toBe(15);
+  });
+});
+
+describe('isMeetingFitsWorkTime', () => {
+  test('встреча помещается в рабочее время', () => {
+    expect(isMeetingFitsWorkTime('8:00', '17:30', '14:00', 90)).toBe(true);
+  });
+
+  test('встреча начинается ровно в начало рабочего дня и заканчивается вовремя', () => {
+    expect(isMeetingFitsWorkTime('8:0', '10:0', '8:0', 120)).toBe(true);
+  });
+
+  test('встреча заканчивается после рабочего дня', () => {
+    expect(isMeetingFitsWorkTime('08:00', '14:30', '14:00', 90)).toBe(false);
+  });
+
+  test('встреча начинается до рабочего дня', () => {
+    expect(isMeetingFitsWorkTime('14:00', '17:30', '08:0', 90)).toBe(false);
+  });
+
+  test('встреча слишком длинная', () => {
+    expect(isMeetingFitsWorkTime('8:00', '17:30', '08:00', 900)).toBe(false);
   });
 });
