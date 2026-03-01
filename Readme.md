@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Ирина Трубчик](https://up.htmlacademy.ru/javascript-individual/2/user/314909).
-* Наставник: `Денис Лопатин`.
+* Наставник: [Денис Лопатин](https://htmlacademy.ru/profile/denislopatin)
 
 ---
 
