@@ -122,19 +122,19 @@ function openPicture(photo) {
   elements.imgElement.src = photo.url;
   elements.captionElement.textContent = photo.description;
   elements.likesElement.textContent = photo.likes;
-  
+
   // Инициализируем состояние комментариев
   currentComments = photo.comments;
   displayedCommentsCount = 0;
-  
+
   elements.commentTotalElement.textContent = photo.comments.length;
 
   elements.commentsElement.innerHTML = '';
-  
+
   // Показываем блоки счётчика и загрузки
   elements.commentCountElement.classList.remove('hidden');
   elements.commentsLoaderElement.classList.remove('hidden');
-  
+
   // Загружаем первую порцию комментариев
   loadMoreComments(elements);
 
@@ -154,7 +154,7 @@ function closePicture() {
   elements.bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   elements.commentsElement.innerHTML = '';
-  
+
   // Сбрасываем состояние комментариев
   currentComments = [];
   displayedCommentsCount = 0;
@@ -223,7 +223,7 @@ function initPictureModal(onClose) {
   elements.cancelElement.addEventListener('click', () => onCancelClick(onClose));
   elements.bigPicture.addEventListener('click', (evt) => onOverlayClick(evt, onClose));
   document.addEventListener('keydown', (evt) => onEscapePress(evt, onClose));
-  
+
   // Обработчик кнопки «Загрузить ещё»
   elements.commentsLoaderElement.addEventListener('click', () => loadMoreComments(elements));
 }
