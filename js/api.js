@@ -1,6 +1,18 @@
 // API для работы с сервером
 
-import { API_URL } from './const.js';
+import { API_URL } from './constants.js';
+
+/**
+ * Обрабатывает ответ от сервера
+ * @param {Response} response - ответ fetch
+ * @returns {Promise}
+ */
+function handleResponse(response) {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+}
 
 /**
  * Загружает данные с сервера
@@ -8,13 +20,7 @@ import { API_URL } from './const.js';
  * @returns {Promise}
  */
 function loadData(endpoint) {
-  return fetch(`${API_URL}/${endpoint}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    });
+  return fetch(`${API_URL}/${endpoint}`).then(handleResponse);
 }
 
 /**
@@ -27,13 +33,7 @@ function sendData(endpoint, body) {
   return fetch(`${API_URL}/${endpoint}`, {
     method: 'POST',
     body
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    });
+  }).then(handleResponse);
 }
 
 export { loadData, sendData };

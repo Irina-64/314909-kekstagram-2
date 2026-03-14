@@ -1,6 +1,6 @@
 // Фильтрация фотографий
 
-import { RANDOM_PHOTO_COUNT } from './const.js';
+import { RANDOM_PHOTO_COUNT } from './constants.js';
 
 /**
  * Фильтр по умолчанию
@@ -17,8 +17,19 @@ function filterDefault(photos) {
  * @returns {Array}
  */
 function filterRandom(photos) {
-  const shuffled = [...photos].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, RANDOM_PHOTO_COUNT);
+  const result = [];
+  const usedIndices = new Set();
+  const count = Math.min(RANDOM_PHOTO_COUNT, photos.length);
+
+  while (result.length < count) {
+    const index = Math.floor(Math.random() * photos.length);
+    if (!usedIndices.has(index)) {
+      usedIndices.add(index);
+      result.push(photos[index]);
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -43,8 +54,7 @@ const filters = {
  * @returns {Array}
  */
 function applyFilter(filterType, photos) {
-  const filter = filters[filterType];
-  return filter ? filter(photos) : photos;
+  return filters[filterType]?.(photos) ?? photos;
 }
 
-export { applyFilter, filters };
+export { applyFilter, filters, filterDefault, filterRandom, filterDiscussed };
