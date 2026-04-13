@@ -41,7 +41,7 @@ const setActiveFilter = (filterType) => {
   }
 
   // Применяем фильтр с задержкой (debounce)
-  debouncedFiltersChange(filterType);
+  debouncedFiltersChange(currentFilter);
 };
 
 /**

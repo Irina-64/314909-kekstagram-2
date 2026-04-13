@@ -47,7 +47,6 @@ const initApp = (photos) => {
 };
 
 initUploadForm();
-initFilters(); // Инициализируем обработчики сразу
 
 getPhotos()
   .then(initApp)
