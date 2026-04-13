@@ -20,6 +20,7 @@ let elementsCache = null;
 let currentComments = [];
 let displayedCommentsCount = 0;
 let escapeHandler = null;
+let isModalInitialized = false;
 
 /**
  * Получает элементы модального окна (кэширует результат)
@@ -123,17 +124,11 @@ const closePicture = () => {
 
   elements.bigPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  elements.commentsElement.innerHTML = '';
+  clearComments(elements);
 
   // Сбрасываем состояние комментариев
   currentComments = [];
   displayedCommentsCount = 0;
-
-  // Удаляем обработчик Escape при закрытии окна
-  if (escapeHandler) {
-    document.removeEventListener('keydown', escapeHandler);
-    escapeHandler = null;
-  }
 };
 
 /**
@@ -167,10 +162,21 @@ const onOverlayClick = (evt, onClose) => {
  * @param {Function} onClose - callback при закрытии
  */
 const initPictureModal = (onClose) => {
+  // Защита от дублирования обработчиков (Д28)
+  if (isModalInitialized) {
+    return;
+  }
+  isModalInitialized = true;
+
   const elements = getElements();
 
   if (!elements) {
     return;
+  }
+
+  // Сначала удаляем старый обработчик Escape (Б26)
+  if (escapeHandler) {
+    document.removeEventListener('keydown', escapeHandler);
   }
 
   /**
@@ -192,17 +198,15 @@ const initPictureModal = (onClose) => {
   // Сохраняем ссылку на обработчик для удаления
   escapeHandler = onEscapePress;
 
-  // Удаляем старый обработчик перед добавлением нового (защита от дублирования)
-  document.removeEventListener('keydown', onEscapePress);
-
   // Добавляем обработчик Escape
   document.addEventListener('keydown', onEscapePress);
 
   elements.cancelElement.addEventListener('click', () => handleClose(onClose));
   elements.bigPictureElement.addEventListener('click', (evt) => onOverlayClick(evt, onClose));
 
-  // Обработчик кнопки «Загрузить ещё»
-  elements.commentsLoaderElement.addEventListener('click', () => loadMoreComments(elements));
+  elements.cancelElement.addEventListener('click', () => handleClose(onClose));
+  elements.bigPictureElement.addEventListener('click', (evt) => onOverlayClick(evt, onClose));
+  elements.commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 };
 
 /**
