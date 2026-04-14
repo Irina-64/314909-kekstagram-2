@@ -246,20 +246,47 @@ const initPictureModal = (onClose) => {
     handleClose(onClose);
   };
 
-  /**
-   * Обработчик клика по области модального окна
-   * @param {MouseEvent} evt - событие мыши
-   */
-  const onBigPictureClick = (evt) => {
-    onBigPictureOverlayClick(evt, onClose);
-  };
-
-  escapeHandler = onDocumentKeydown;
+  elements.cancelElement.addEventListener('click', () => handleClose(onClose));
+  elements.bigPictureElement.addEventListener('click', (evt) => onOverlayClick(evt, onClose));
 
   document.addEventListener('keydown', onDocumentKeydown);
   elements.cancelElement.addEventListener('click', onBigPictureCancelClick);
   elements.bigPictureElement.addEventListener('click', onBigPictureClick);
   elements.commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
+};
+
+/**
+ * Открывает полноразмерное изображение
+ * @param {Object} photo - объект фотографии
+ */
+const openPicture = (photo) => {
+  const elements = getElements();
+
+  if (!elements) {
+    return;
+  }
+
+  elements.imgElement.src = photo.url;
+  elements.captionElement.textContent = photo.description;
+  elements.likesElement.textContent = photo.likes;
+
+  // Инициализируем состояние комментариев
+  currentComments = photo.comments;
+  displayedCommentsCount = 0;
+
+  elements.commentTotalElement.textContent = photo.comments.length;
+
+  elements.commentsElement.innerHTML = '';
+
+  // Показываем блоки счётчика и загрузки
+  elements.commentCountElement.classList.remove('hidden');
+  elements.commentsLoaderElement.classList.remove('hidden');
+
+  // Загружаем первую порцию комментариев
+  loadMoreComments(elements);
+
+  elements.bigPictureElement.classList.remove('hidden');
+  document.body.classList.add('modal-open');
 };
 
 export { openPicture, initPictureModal };
